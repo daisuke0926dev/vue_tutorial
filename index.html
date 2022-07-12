@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue.js App</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 絞り込みラジオボタン -->
+        <table>
+            <!-- ToDo table -->
+            <thead>
+                <tr>
+                    <th class="id">ID</th>
+                    <th class="comment">comment</th>
+                    <th class="state"> state</th>
+                    <th class="button"> -</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- [1]display some TODOs using the <tr> -->
+                <tr v-for="item in todos" v-bind:key="item.id">
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.comment }}</td>
+                    <td class="state">
+                        <!-- TDM state change button-->
+                        <button>{{ item.state }}</button>
+                    </td>
+                    <td class="button">
+                        <!-- TDM delete button -->
+                        <button>delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- form of new todo -->
+        <h2>create new todo</h2>
+        <form class="add-form" v-on:submit.prevent="doAdd">
+            <!-- input comment -->
+            comment<input type="text" ref="comment">
+            <!-- add button -->
+            <button type="submit">add</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
