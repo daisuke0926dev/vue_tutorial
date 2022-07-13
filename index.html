@@ -10,6 +10,9 @@
 <body>
     <div id="app">
         <!-- 絞り込みラジオボタン -->
+        <label v-for="label in options">
+            <input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}
+        </label>
         <table>
             <!-- ToDo table -->
             <thead>
@@ -26,12 +29,12 @@
                     <th>{{ item.id }}</th>
                     <td>{{ item.comment }}</td>
                     <td class="state">
-                        <!-- TDM state change button-->
-                        <button>{{ item.state }}</button>
+                        <button v-on:click="doChangeState(item)">
+                            {{ item.state }}
                     </td>
                     <td class="button">
-                        <!-- TDM delete button -->
-                        <button>delete</button>
+                        <button v-on:click="doRemove(item)">
+                            削除
                     </td>
                 </tr>
             </tbody>

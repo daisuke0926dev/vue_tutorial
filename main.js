@@ -20,13 +20,25 @@ var todoStorage = {
 const app = new Vue({
     el: '#app',
     data: {
-        todos: []
+        todos: [],
+        options: [
+            { value: -1, lavel: "すべて"},
+            { value: 0, lavel: "作業中"},
+            { value: 1, lavel: "完了"},
+        ],
+        current: -1
+    },
+    created() {
+        // auto fetch when you create instance
+        this.todos = todoStorage.fetch();
     },
     methods: {
         //add todo
         doAdd: function (event, value) {
             var comment = this.$refs.comment
-            if (!comment.value.length) return
+            if (!comment.value.length) {
+                return
+            }
             this.todos.push({
                 id: todoStorage.uid++,
                 comment: comment.value,
@@ -43,9 +55,12 @@ const app = new Vue({
                 deep: true
             }
         },
-        created() {
-            // auto fetch when you create instance
-            this.todos = todoStorage.fetch();
+        doChangeState: function (item) {
+            item.state = item.state ? 0 : 1
+        },
+        doRemove: function (item) {
+            var index = this.todos.indexOf(item)
+            this.todos.splice(index, 1)
         }
     }
 })
